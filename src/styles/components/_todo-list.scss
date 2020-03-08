@@ -1,7 +1,12 @@
 .todo-list {
+  // style resets
   list-style: none;
+  padding: 0;
 }
 
 .todo-list__item {
-  
+  border: rem(1) solid #c1c1c1;
+  padding: s(small);
+  margin-bottom: s(small);
+  width: 100%;
 }

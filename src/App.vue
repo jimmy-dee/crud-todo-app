@@ -1,6 +1,9 @@
 <template>
   <main class="l-content">
-    <form class="todo u-flex u-flex--center u-flex--column u-spacing-m-small u-spacing-p-small">
+    <form
+      class="todo u-flex u-flex--center u-flex--column u-spacing-m-small u-spacing-p-small"
+      v-on:submit.prevent
+    >
       <loading-indicator v-if="isLoading"></loading-indicator>
       <error-message v-if="hasError"></error-message>
       <h1 class="">Todo list</h1>
@@ -12,7 +15,7 @@
         class="todo-list"
       >
         <li
-          class="todo-list__item"
+          class="todo-list__item u-spacing-p-small u-spacing-mb-small"
           v-bind:key="todo.id"
           v-for="todo in todos"
         >
@@ -44,6 +47,7 @@ export default {
   data() {
     return {
       baseApiUrl: 'https://jsonplaceholder.typicode.com/todos',
+      hasError: false,
     };
   },
   computed: {
@@ -63,6 +67,7 @@ export default {
   methods: {
     fetchTodos() {
       mutations.setIsLoading(true);
+      this.hasError = false;
 
       axios.get(this.apiUrl)
         .then((response) => {
@@ -71,6 +76,7 @@ export default {
         .catch((error) => {
           // handle error
           console.log(error);
+          this.hasError = true;
         })
         .then(() => {
           mutations.setIsLoading(false);

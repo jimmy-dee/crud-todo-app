@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="u-flex u-flex--center">
     <input
       type="checkbox"
       v-bind:aria-checked="completed"
@@ -8,7 +8,10 @@
       v-model="completed"
       v-on:change="toggleTodo(todo)"
     />
-    <label v-bind:for="'todo' + id">
+    <label
+      class="u-flex-grow-1 u-spacing-mh-small"
+      v-bind:for="'todo' + id"
+    >
       <component
         class=""
         v-bind:is="completed ? 'del' : 'span'"
