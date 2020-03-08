@@ -1,6 +1,7 @@
 <template>
   <main class="l-content">
     <form class="todo u-flex u-flex--center u-flex--column u-spacing-m-small u-spacing-p-small">
+      <loading-indicator v-if="isLoading"></loading-indicator>
       <h1 class="">Todo list</h1>
       <create-todo></create-todo>
       <ul
@@ -24,12 +25,14 @@
 <script>
 import axios from 'axios';
 import CreateTodo from './components/CreateTodo.vue';
+import LoadingIndicator from './components/LoadingIndicator.vue';
 import TodoItem from './components/TodoItem.vue';
 
 export default {
   name: 'todo-app',
   components: {
     CreateTodo,
+    LoadingIndicator,
     TodoItem,
   },
   data() {

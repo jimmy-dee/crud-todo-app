@@ -1,0 +1,15 @@
+.loading-indicator {
+  background: rgba(#e2e2e2, 0.9);
+  color: #1a1a1a;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.loading-indicator__text {
+  background: #fff;
+  border: rem(1) solid #000;
+  padding: s(small);
+}
