@@ -1,0 +1,11 @@
+@function get($original-map, $keys: null, $stack-trace-name: null) {
+  $map: $original-map;
+
+  @if ($keys) {
+    @each $key in $keys {
+      $map: map-get($map, $key);
+    }
+  }
+
+  @return $map;
+}

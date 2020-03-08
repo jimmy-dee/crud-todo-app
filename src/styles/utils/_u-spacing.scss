@@ -1,0 +1,21 @@
+// By creating a map we have a centralised location for our predefined spacing sizes
+
+$spacings: (
+  small: rem(8),
+);
+
+// just writes out a nice function for us to access our sizes in the aboe map 
+
+@function s($keys) {
+  @return get($spacings, $keys, "s");
+}
+
+// usually for a large project i would have a map of all margin and padding types, but kept it simple for this smaller project
+
+.u-spacing-p-small {
+  padding: s(small);
+}
+
+.u-spacing-m-small {
+  margin: s(small);
+}
