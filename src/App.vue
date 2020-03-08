@@ -29,6 +29,7 @@
 import axios from 'axios';
 import { mutations, store } from './scripts/store';
 import CreateTodo from './components/CreateTodo.vue';
+import ErrorMessage from './components/ErrorMessage.vue';
 import LoadingIndicator from './components/LoadingIndicator.vue';
 import TodoItem from './components/TodoItem.vue';
 
@@ -36,6 +37,7 @@ export default {
   name: 'todo-app',
   components: {
     CreateTodo,
+    ErrorMessage,
     LoadingIndicator,
     TodoItem,
   },
