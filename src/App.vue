@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       baseApiUrl: 'https://jsonplaceholder.typicode.com/todos',
+      isLoading: false,
       todos: null,
       userId: 2,
     };
