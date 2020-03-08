@@ -1,6 +1,5 @@
 import 'normalize.css';
 import './main.scss';
-// import axios from 'axios';
 import Vue from 'vue';
 import App from './App.vue';
 

@@ -1,11 +1,21 @@
+$todo-create-height: rem(40);
+
 .todo-create__input {
   border: 1px solid #c1c1c1;
   border-radius: rem(4);
-  height: rem(40);
+  height: $todo-create-height;
+  padding: 0;
 }
 
 .todo-create__button {
+  background-color: #00cc00;
   border-radius: rem(4);
   color: #fff;
-  background-color: #00CC00;
+  height: $todo-create-height;
+  width: $todo-create-height;
+
+  &:focus,
+  &:hover {
+    background-color: #00cc99;
+  }
 }

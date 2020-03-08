@@ -2,8 +2,11 @@
   <main class="l-content">
     <form class="todo u-flex u-flex--center u-flex--column u-spacing-m-small u-spacing-p-small">
       <loading-indicator v-if="isLoading"></loading-indicator>
+      <error-message v-if="hasError"></error-message>
       <h1 class="">Todo list</h1>
-      <create-todo></create-todo>
+      <create-todo
+        v-bind:base-api-url="baseApiUrl"
+      ></create-todo>
       <ul
         aria-live="polite"
         class="todo-list"
@@ -24,6 +27,7 @@
 
 <script>
 import axios from 'axios';
+import { mutations, store } from './scripts/store';
 import CreateTodo from './components/CreateTodo.vue';
 import LoadingIndicator from './components/LoadingIndicator.vue';
 import TodoItem from './components/TodoItem.vue';
@@ -38,32 +42,40 @@ export default {
   data() {
     return {
       baseApiUrl: 'https://jsonplaceholder.typicode.com/todos',
-      isLoading: false,
-      todos: null,
-      userId: 2,
     };
   },
   computed: {
     apiUrl() {
       return `${this.baseApiUrl}?userId=${this.userId}`;
     },
+    isLoading() {
+      return store.isLoading;
+    },
+    todos() {
+      return store.todos;
+    },
+    userId() {
+      return store.userId;
+    },
   },
   methods: {
     fetchTodos() {
+      mutations.setIsLoading(true);
+
       axios.get(this.apiUrl)
         .then((response) => {
-          this.todos = response.data;
+          mutations.setTodos(response.data);
         })
         .catch((error) => {
           // handle error
           console.log(error);
         })
         .then(() => {
-          // always executed
+          mutations.setIsLoading(false);
         });
     },
   },
-  created() {
+  mounted() {
     this.fetchTodos();
   },
 };
