@@ -1,21 +1,8 @@
 <template>
   <main class="l-content">
-    <div class="todo u-flex u-flex--center u-flex--column u-spacing-m-small u-spacing-p-small">
+    <form class="todo u-flex u-flex--center u-flex--column u-spacing-m-small u-spacing-p-small">
       <h1 class="">Todo list</h1>
-      <form class="todo-create">
-        <input
-          class="todo-create__input"
-          placeholder="Create a new todo"
-          type="text"
-        />
-        <button
-          aria-label="Create a new todo"
-          class="todo-create__button"
-          v-on:click="createTodo"
-        >
-          +
-        </button>
-      </form>
+      <create-todo></create-todo>
       <ul
         aria-live="polite"
         class="todo-list"
@@ -49,18 +36,18 @@
           </button>
         </li>
       </ul>
-    </div>
+    </form>
   </main>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue';
 import axios from 'axios';
+import CreateTodo from './components/CreateTodo.vue';
 
 export default {
   name: 'todo-app',
   components: {
-    // HelloWorld,
+    CreateTodo,
   },
   data() {
     return {
@@ -76,19 +63,6 @@ export default {
     },
   },
   methods: {
-    createTodo(newTodo) {
-      axios.post(this.baseApiUrl, { ...newTodo, userId: this.userId })
-        .then(() => {
-          // this is what i would do if the api was returning real data
-          // this.todos = this.fetchTodos();
-
-          // mock created
-          this.todos.push({ ...newTodo, userId: this.userId });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     fetchTodos() {
       axios.get(this.apiUrl)
         .then((response) => {
