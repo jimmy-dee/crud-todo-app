@@ -11,10 +11,7 @@
       class="u-flex-grow-1 u-spacing-mh-small"
       v-bind:for="'todo' + id"
     >
-      <component
-        class=""
-        v-bind:is="completed ? 'del' : 'span'"
-      >
+      <component v-bind:is="completed ? 'del' : 'span'">
         {{ title }}
       </component>
     </label>

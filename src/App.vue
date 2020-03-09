@@ -6,7 +6,7 @@
     >
       <loading-indicator v-if="isLoading"></loading-indicator>
       <error-message v-if="hasError"></error-message>
-      <h1 class="">Todo list</h1>
+      <h1>Todo list</h1>
       <create-todo
         v-bind:base-api-url="baseApiUrl"
       ></create-todo>
