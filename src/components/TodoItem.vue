@@ -16,7 +16,7 @@
       </component>
     </label>
     <button
-      v-bind:aria-label="`remove todo: ${title}`"
+      aria-label="remove todo"
       v-on:click="removeTodo"
     >
       X
