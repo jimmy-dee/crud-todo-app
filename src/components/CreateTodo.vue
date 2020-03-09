@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     createTodo() {
+      mutations.setHasError(false);
       mutations.setIsLoading(true);
 
       const config = {
@@ -57,6 +58,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          mutations.setHasError(true);
         })
         .then(() => {
           mutations.setIsLoading(false);

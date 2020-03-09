@@ -21,6 +21,7 @@
         >
           <todo-item
             v-bind="todo"
+            v-bind:base-api-url="baseApiUrl"
           ></todo-item>
         </li>
       </ul>
@@ -47,12 +48,14 @@ export default {
   data() {
     return {
       baseApiUrl: 'https://jsonplaceholder.typicode.com/todos',
-      hasError: false,
     };
   },
   computed: {
     apiUrl() {
       return `${this.baseApiUrl}?userId=${this.userId}`;
+    },
+    hasError() {
+      return store.hasError;
     },
     isLoading() {
       return store.isLoading;
@@ -66,8 +69,8 @@ export default {
   },
   methods: {
     fetchTodos() {
+      mutations.setHasError(false);
       mutations.setIsLoading(true);
-      this.hasError = false;
 
       axios.get(this.apiUrl)
         .then((response) => {
@@ -76,7 +79,7 @@ export default {
         .catch((error) => {
           // handle error
           console.log(error);
-          this.hasError = true;
+          mutations.setHasError(true);
         })
         .then(() => {
           mutations.setIsLoading(false);
