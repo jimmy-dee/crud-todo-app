@@ -9,6 +9,7 @@
       <h1>Todo list</h1>
       <create-todo
         v-bind:base-api-url="baseApiUrl"
+        v-on:create="createTodo"
       ></create-todo>
       <ul
         aria-live="polite"
@@ -21,7 +22,8 @@
         >
           <todo-item
             v-bind="todo"
-            v-bind:base-api-url="baseApiUrl"
+            v-on:remove="removeTodo"
+            v-on:toggle="toggleTodo"
           ></todo-item>
         </li>
       </ul>
@@ -48,6 +50,7 @@ export default {
   data() {
     return {
       baseApiUrl: 'https://jsonplaceholder.typicode.com/todos',
+      userId: 2,
     };
   },
   computed: {
@@ -63,11 +66,36 @@ export default {
     todos() {
       return store.todos;
     },
-    userId() {
-      return store.userId;
-    },
   },
   methods: {
+    createTodo(title) {
+      mutations.setHasError(false);
+      mutations.setIsLoading(true);
+
+      const config = {
+        completed: false,
+        id: store.todoId,
+        title,
+        userId: this.userId,
+      };
+
+      axios.post(this.baseApiUrl, config)
+        .then(() => {
+          // with a real api id use the below, but because of the mocked response i dont
+          // mutations.createTodo(response.data);
+
+          // mock created
+          mutations.createTodo(config);
+          this.todoTitle = '';
+        })
+        .catch((error) => {
+          console.log(error);
+          mutations.setHasError(true);
+        })
+        .then(() => {
+          mutations.setIsLoading(false);
+        });
+    },
     fetchTodos() {
       mutations.setHasError(false);
       mutations.setIsLoading(true);
@@ -78,6 +106,54 @@ export default {
         })
         .catch((error) => {
           // handle error
+          console.log(error);
+          mutations.setHasError(true);
+        })
+        .then(() => {
+          mutations.setIsLoading(false);
+        });
+    },
+    removeTodo(todo) {
+      mutations.setHasError(false);
+      mutations.setIsLoading(true);
+
+      axios.delete(`${this.baseApiUrl}/${this.id}`, todo)
+        .then(() => {
+          // with a real api id use the below, but because of the mocked response i dont
+          // mutations.deleteTodo(response.data);
+
+          // mock deletion
+          debugger;
+          mutations.deleteTodo(todo);
+        })
+        .catch((error) => {
+          console.log(error);
+          mutations.setHasError(true);
+        })
+        .then(() => {
+          mutations.setIsLoading(false);
+        });
+    },
+    toggleTodo() {
+      mutations.setHasError(false);
+      mutations.setIsLoading(true);
+
+      const config = {
+        completed: !this.completed,
+        id: this.id,
+        title: this.title,
+        userId: this.userId,
+      };
+
+      axios.put(`${this.baseApiUrl}/${this.id}`, config)
+        .then(() => {
+          // with a real api id use the below, but because of the mocked response i dont
+          // mutations.updateTodo(response.data);
+
+          // mock created
+          mutations.updateTodo(config);
+        })
+        .catch((error) => {
           console.log(error);
           mutations.setHasError(true);
         })

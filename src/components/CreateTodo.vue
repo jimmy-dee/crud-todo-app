@@ -19,9 +19,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mutations, store } from '@/scripts/store';
-
 export default {
   name: 'CreateTodo',
   props: {
@@ -37,32 +34,8 @@ export default {
   },
   methods: {
     createTodo() {
-      mutations.setHasError(false);
-      mutations.setIsLoading(true);
-
-      const config = {
-        completed: false,
-        id: store.todoId,
-        title: this.todoTitle,
-        userId: store.userId,
-      };
-
-      axios.post(this.baseApiUrl, config)
-        .then(() => {
-          // with a real api id use the below, but because of the mocked response i dont
-          // mutations.createTodo(response.data);
-
-          // mock created
-          mutations.createTodo(config);
-          this.todoTitle = '';
-        })
-        .catch((error) => {
-          console.log(error);
-          mutations.setHasError(true);
-        })
-        .then(() => {
-          mutations.setIsLoading(false);
-        });
+      debugger;
+      this.$emit('create', this.todoTitle);
     },
     updateTodoTitle(event) {
       this.todoTitle = event.target.value;
