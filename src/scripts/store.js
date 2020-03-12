@@ -5,7 +5,6 @@ export const store = Vue.observable({
   isLoading: false,
   todoId: 20000,
   todos: [],
-  userId: 2,
 });
 
 export const mutations = {
